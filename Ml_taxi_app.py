@@ -14,17 +14,18 @@ st.title("PragyanAI Taxi Fare Prediction App (End-to-End ML)")
 def load_data():
     df = pd.read_csv("taxis.csv")
     df = df.convert_dtypes()
-    st.write(df.head())
     return df
 
 df = load_data()
 
-st.subheader("PragyanAI Dataset Preview")
+st.subheader("📂 Dataset Preview")
+st.write(df.head())
 
 # Data cleaning
 df = df[['distance', 'fare']].dropna()
 df['distance'] = pd.to_numeric(df['distance'], errors='coerce')
 df['fare'] = pd.to_numeric(df['fare'], errors='coerce')
+df = df.dropna()
 
 # Features & target
 X = df[['distance']]
@@ -53,16 +54,13 @@ st.write(f"RMSE: {rmse:.2f}")
 # User input
 st.subheader("🚖 Enter Trip Details")
 
-distance = st.number_input("Step 1: Enter Distance (km)", min_value=0.0, value=5.0)
-
-passengers = st.number_input("Step 2: Number of Passengers", min_value=1, value=1)
-
-hour = st.number_input("Step 3: Hour of Day (0–23)", min_value=0, max_value=23, value=12)
+distance = st.number_input("Enter Distance (km)", min_value=0.0, value=5.0)
 
 if st.button("Predict Fare"):
-    prediction = model.predict([[distance]])
-    st.success(f"🚖 Estimated Fare: {prediction[0]:.2f}")
+    input_data = pd.DataFrame([[distance]], columns=['distance'])
+    prediction = model.predict(input_data)
+    st.success(f"🚖 Estimated Fare: ₹{prediction[0]:.2f}")
 
-# Built-in chart (instead of matplotlib)
+# Chart
 st.subheader("📈 Distance vs Fare")
 st.scatter_chart(df, x='distance', y='fare')
