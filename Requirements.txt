@@ -1,8 +1,8 @@
+streamlit
 pandas
 numpy
-scikit-learn
-streamlit
 matplotlib
+scikit-learn
 seaborn
 altair
 pyarrow
