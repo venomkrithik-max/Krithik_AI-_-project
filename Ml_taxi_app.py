@@ -9,7 +9,7 @@ from sklearn.metrics import r2_score, mean_squared_error
 
 
 # Title
-st.title("PragyanAI Taxi Fare Prediction App (End-to-End 
+st.title("PragyanAI Taxi Fare Prediction App (End-to-End ML)") 
 # Load data
 @st.cache_data
 def load_data():
